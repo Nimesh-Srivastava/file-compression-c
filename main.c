@@ -2,7 +2,32 @@
 #include <stdlib.h>
 #include <string.h>
 
-void compress() { printf("Compression function called\n"); }
+void compress() {
+    printf("Compressing... \n");
+
+    int seen_char = getchar();
+    int next_char;
+    int counter = 1;
+
+    while ((next_char = getchar()) != EOF) {
+        if (next_char == seen_char) {
+            counter++;
+
+            if (counter >= 255) {
+                putchar(seen_char);
+                putchar(counter);
+                counter = 0;
+            }
+        } else {
+            putchar(seen_char);
+            putchar(counter);
+            counter = 1;
+            seen_char = next_char;
+        }
+    }
+
+    printf("\n");
+}
 void decompress() { printf("Decompression function called\n"); }
 
 int main(int argc, char *argv[]) {
