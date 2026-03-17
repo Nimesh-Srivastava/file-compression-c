@@ -26,7 +26,8 @@ void compress() {
         }
     }
 
-    printf("\n");
+    putchar(seen_char);
+    putchar(counter);
 }
 void decompress() { printf("Decompression function called\n"); }
 
