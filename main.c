@@ -3,9 +3,12 @@
 #include <string.h>
 
 void compress() {
-    printf("Compressing... \n");
+    fprintf(stderr, "Compressing...\n");
 
     int seen_char = getchar();
+    if (seen_char == EOF)
+        return;
+
     int next_char;
     int counter = 1;
 
@@ -16,20 +19,35 @@ void compress() {
             if (counter >= 255) {
                 putchar(seen_char);
                 putchar(counter);
-                counter = 0;
+                counter = 1;
             }
         } else {
             putchar(seen_char);
             putchar(counter);
-            counter = 1;
             seen_char = next_char;
+            counter = 1;
         }
     }
 
     putchar(seen_char);
     putchar(counter);
 }
-void decompress() { printf("Decompression function called\n"); }
+
+void decompress() {
+    fprintf(stderr, "Decompressing...\n");
+
+    int enc_char, count;
+
+    while ((enc_char = getchar()) != EOF) {
+        count = getchar();
+        if (count == EOF)
+            break;
+
+        for (int i = 0; i < count; ++i) {
+            putchar(enc_char);
+        }
+    }
+}
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
